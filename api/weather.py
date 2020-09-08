@@ -58,4 +58,4 @@ def catch_all():
 
 if __name__ == "__main__":
     set_sys_time()
-    app.run(debug=False)
+    app.run(debug=True)
