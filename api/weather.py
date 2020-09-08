@@ -50,7 +50,7 @@ def make_svg():
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
-def catch_all():
+def catch_all(path):
     svg = make_svg()
     resp = Response(svg, mimetype="image/svg+xml")
     resp.headers["Cache-Control"] = "s-maxage=1"
