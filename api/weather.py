@@ -48,7 +48,8 @@ def make_svg():
     return render_template("template.html", **data)
 
 
-@app.route("/")
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
 def catch_all():
     svg = make_svg()
     resp = Response(svg, mimetype="image/svg+xml")
