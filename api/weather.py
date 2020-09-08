@@ -3,6 +3,9 @@ import json
 import os
 import time
 
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
+
 import pytemperature
 import requests
 from flask import Flask, Response, render_template
