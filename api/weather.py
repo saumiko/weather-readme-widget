@@ -13,7 +13,7 @@ from flask import Flask, Response, render_template
 
 GITHUB_USERNAME = "saumiko"
 GITHUB_REPO = "weather-readme-widget"
-GIT_BRANCH = "master"
+GIT_BRANCH = "lat-long"
 
 CONFIG_FILE_URL = "https://raw.githubusercontent.com/{}/{}/{}/api/config.ini".format(GITHUB_USERNAME,
                                                                                      GITHUB_REPO,
@@ -31,8 +31,8 @@ load_dotenv(find_dotenv())
 app = Flask(__name__)
 
 OPENWEATHERMAP_KEY = os.getenv("OPENWEATHERMAP")
-OPENWEATHERMAP_API_URL = config["api"]["openweathermap"].format(config["timezone"]["city"],
-                                                                config["timezone"]["country"],
+OPENWEATHERMAP_API_URL = config["api"]["openweathermap"].format(config["location"]["lat"],
+                                                                config["location"]["lon"],
                                                                 OPENWEATHERMAP_KEY)
 ICON_URL = config["icon"]["openweathermap"]
 UTC_PLUS = int(config["timezone"]["utc_plus"])
@@ -57,6 +57,7 @@ def load_image_b64(url):
 
 
 def get_weather_widget():
+    global config
     weather_data = json.loads(requests.get(OPENWEATHERMAP_API_URL).text)
     current_time = datetime.datetime.fromtimestamp(weather_data["dt"] + UTC_BALANCE).strftime("%d %B, %Y - %I:%M:%S %p")
     temperature = pytemperature.k2c(weather_data["main"]["temp"])
@@ -66,7 +67,7 @@ def get_weather_widget():
     weather_type = weather_data["weather"][0]["main"]
     sunrise = datetime.datetime.fromtimestamp(weather_data["sys"]["sunrise"] + UTC_BALANCE).strftime("%I:%M:%S %p")
     sunset = datetime.datetime.fromtimestamp(weather_data["sys"]["sunset"] + UTC_BALANCE).strftime("%I:%M:%S %p")
-    city = weather_data["name"]
+    city = config["location"]["city"]
     country = weather_data["sys"]["country"]
     icon = weather_data["weather"][0]["icon"]
     w_data = {
