@@ -1,1 +1,0 @@
-[<img align="top" src="https://weather-readme.vercel.app/api/weather" alt="Weather" width="50%" height= "50%" />](#)
