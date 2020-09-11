@@ -4,7 +4,7 @@
  <h2 align="center">GitHub Readme Weather Stats</h2>
  <p align="center">Get dynamically generated weather stats on your GitHub readmes!</p>
 
-  <p align="center"><img alt="Powered by Vercel" src="https://raw.githubusercontent.com/saumiko/weather-readme-widget/master/vercel.svg" /></p>
+  <p align="center"><a href="https://weather-readme.vercel.app/api/weather"><img alt="Powered by Vercel" src="https://raw.githubusercontent.com/saumiko/weather-readme-widget/master/vercel.svg" /></a></p>
   <p align="center">
     <a href="#demo">View Demo</a>
     ·
