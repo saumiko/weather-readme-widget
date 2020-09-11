@@ -13,7 +13,7 @@ from flask import Flask, Response, render_template
 
 GITHUB_USERNAME = "saumiko"
 GITHUB_REPO = "weather-readme-widget"
-GIT_BRANCH = "lat-long"
+GIT_BRANCH = "master"
 
 CONFIG_FILE_URL = "https://raw.githubusercontent.com/{}/{}/{}/api/config.ini".format(GITHUB_USERNAME,
                                                                                      GITHUB_REPO,
