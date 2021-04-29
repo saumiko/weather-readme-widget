@@ -1,5 +1,5 @@
 flask==1.1.2
 requests==2.25.1
 pytemperature==1.0
-python-dotenv==0.17.0
+python-dotenv==0.17.1
 configparser==5.0.2
