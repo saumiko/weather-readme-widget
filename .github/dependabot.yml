@@ -1,0 +1,16 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/api"
+  schedule:
+    interval: daily
+    time: "23:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - saumiko
+  assignees:
+  - saumiko
+  ignore:
+  - dependency-name: python-dotenv
+    versions:
+    - 0.16.0
