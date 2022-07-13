@@ -1,4 +1,4 @@
-flask==2.1.1
+flask==2.1.3
 requests==2.27.1
 pytemperature==1.1
 python-dotenv==0.20.0
