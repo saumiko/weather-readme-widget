@@ -65,8 +65,8 @@ def get_weather_widget():
     max_temperature = pytemperature.k2c(weather_data["main"]["temp_max"])
     min_temperature = pytemperature.k2c(weather_data["main"]["temp_min"])
     weather_type = weather_data["weather"][0]["main"]
-    sunrise = datetime.datetime.fromtimestamp(weather_data["sys"]["sunrise"] + UTC_BALANCE).strftime("%I:%M:%S %p")
-    sunset = datetime.datetime.fromtimestamp(weather_data["sys"]["sunset"] + UTC_BALANCE).strftime("%I:%M:%S %p")
+    sunrise = datetime.datetime.fromtimestamp(weather_data["sys"]["sunrise"]).strftime("%I:%M:%S %p")
+    sunset = datetime.datetime.fromtimestamp(weather_data["sys"]["sunset"]).strftime("%I:%M:%S %p")
     city = config["location"]["city"]
     country = weather_data["sys"]["country"]
     icon = weather_data["weather"][0]["icon"]
