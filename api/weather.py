@@ -11,7 +11,7 @@ import requests
 from dotenv import load_dotenv, find_dotenv
 from flask import Flask, Response, render_template
 
-GITHUB_USERNAME = "saumiko"
+GITHUB_USERNAME = "rc-chuah"
 GITHUB_REPO = "weather-readme-widget"
 GIT_BRANCH = "master"
 
