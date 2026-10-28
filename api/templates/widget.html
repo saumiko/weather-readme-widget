@@ -1,27 +1,57 @@
 <svg width="480" height="160" viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg">
   <style>
     :root { color-scheme: light dark; }
-    .panel { fill: #f6f8fa; stroke: #d0d7de; }
+    .panel { fill: {{ '#f0f4fa' if night else '#f6f8fa' }}; stroke: #d0d7de; }
     .primary { fill: #1f2328; }
     .secondary { fill: #59636e; }
-    .accent { fill: #0969da; }
+    .accent { fill: {{ '#526db5' if night else '#0969da' }}; }
     .rule { stroke: #d0d7de; }
+    .sky { fill: {{ '#8099cb' if night else '#f5b942' }}; }
+    .cloud { fill: #a8b8cc; }
     @media (prefers-color-scheme: dark) {
-      .panel { fill: #161b22; stroke: #30363d; }
+      .panel { fill: {{ '#101b2c' if night else '#161b22' }}; stroke: #30363d; }
       .primary { fill: #f0f6fc; }
       .secondary { fill: #9198a1; }
-      .accent { fill: #58a6ff; }
+      .accent { fill: {{ '#a6bfff' if night else '#58a6ff' }}; }
       .rule { stroke: #30363d; }
+      .cloud { fill: #8192a7; }
     }
     text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
   </style>
   <rect class="panel" x="1" y="1" width="478" height="158" rx="12"/>
-  <text class="primary" x="16" y="28" font-size="17" font-weight="650">Weather in {{city}}</text>
-  <text class="secondary" x="16" y="45" font-size="10">Updated {{current_time}}</text>
+  <text class="primary" x="16" y="27" font-size="17" font-weight="650">Weather in {{city}}</text>
+  <text class="secondary" x="16" y="43" font-size="10">Observed {{current_time}} · Fetched {{fetched_time}}</text>
   <text class="accent" x="16" y="91" font-size="39" font-weight="700">{{temperature}}°C</text>
-  <text class="secondary" x="16" y="108" font-size="12">{{weather_type}} · Feels like {{feels_like}}°C</text>
-  <image x="377" y="42" width="80" height="80" href="data:image/png;base64,{{image}}"/>
+  <text class="secondary" x="16" y="109" font-size="12">{{weather_type}} · Feels like {{feels_like}}°C</text>
+  <g transform="translate(398 78)">
+    {% if icon in ['sun','cloud-sun'] %}
+    <circle class="sky" cx="-8" cy="-8" r="19"/>
+    <g stroke="#e5aa36" stroke-width="3" stroke-linecap="round">
+      <path d="M-8-37v-7M-8 21v7M-37-8h-7M21-8h7M-29-29l-5-5M13 13l5 5M13-29l5-5M-29 13l-5 5"/>
+    </g>
+    {% elif icon in ['moon','cloud-moon'] %}
+    <path class="sky" d="M7-32a25 25 0 1 0 19 42A24 24 0 0 1 7-32Z"/>
+    <circle class="sky" cx="29" cy="-23" r="2"/>
+    {% endif %}
+    {% if icon in ['cloud','cloud-sun','cloud-moon','rain','snow'] %}
+    <path class="cloud" d="M-29 11a17 17 0 0 1 15-17 22 22 0 0 1 42 6 15 15 0 0 1-1 30h-41a16 16 0 0 1-15-19Z"/>
+    {% endif %}
+    {% if icon == 'rain' %}
+    <g stroke="#58a6ff" stroke-width="4" stroke-linecap="round"><path d="M-16 37l-4 9M0 37l-4 9M16 37l-4 9"/></g>
+    {% elif icon == 'snow' %}
+    <text x="-18" y="46" font-size="22" fill="#58a6ff">✳ ✳</text>
+    {% elif icon == 'fog' %}
+    <g stroke="#8192a7" stroke-width="5" stroke-linecap="round"><path d="M-30-12h60M-38 0h62M-26 12h58M-35 24h47"/></g>
+    {% elif icon == 'wind' %}
+    <g stroke="#8192a7" stroke-width="5" fill="none" stroke-linecap="round"><path d="M-33-15h54q17 0 9-12M-40 0h65q19 0 11 15M-27 15h37q15 0 8 12"/></g>
+    {% endif %}
+  </g>
   <line class="rule" x1="16" y1="117" x2="464" y2="117"/>
-  <text class="secondary" x="16" y="133" font-size="11">Low {{min_temperature}}°C · High {{max_temperature}}°C</text>
-  <text class="secondary" x="16" y="149" font-size="11">Sunrise {{sunrise}} · Sunset {{sunset}}</text>
+  <text class="secondary" x="16" y="134" font-size="12">Rain {{rain_probability ~ '%' if rain_probability is not none else '—' }} ({{rain_window}})</text>
+  <text class="secondary" x="225" y="134" font-size="12">Wind {{wind_speed}} km/h</text>
+  {% if alert %}
+  <text x="16" y="151" font-size="11" fill="#d97706">⚠ {{alert}}</text>
+  {% else %}
+  <text class="secondary" x="16" y="151" font-size="11">{{'Nighttime' if night else 'Daytime'}} in Dublin · Local time</text>
+  {% endif %}
 </svg>
